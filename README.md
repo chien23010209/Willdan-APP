@@ -38,7 +38,7 @@
 | Họ và Tên | Mã sinh viên | Vai trò đảm nhận |
 | :--- | :--- | :--- | 
 | **Tạ Công Chiến** | 23010209 | Quản lý dự án (PM) & Lập trình viên | 
-| **Nguyễn Văn Tú** | 23010109 | Thiết kế UI/UX & Lập trình Frontend | 
+| **Nguyễn Văn Tú** | 23010109 | Thiết kế UI/UX & Lập trình Frontend, viết báo cáo  | 
 | **Nguyễn Lê Đức Anh**| 23010246 | Đảm bảo chất lượng (QA) & Lập trình Backend |
 
 ---
