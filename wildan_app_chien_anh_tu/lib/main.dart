@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Wildan_app '),
     );
   }
 }
@@ -109,6 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const Text('Tạ Công Chiến  23010209'),
+            const Text('Nguyễn Văn Tú 23010109'),
+            const Text('Nguyễn Lê Đức Anh 23010246'),
           ],
         ),
       ),
