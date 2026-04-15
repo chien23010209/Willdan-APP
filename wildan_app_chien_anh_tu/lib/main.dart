@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Sinh Tồn Cúc Phương',
-      debugShowCheckedModeBanner: false, // Ẩn chữ Debug góc phải cho giống app thật
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
@@ -34,15 +34,12 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
   // YÊU CẦU 1: THỰC HIỆN SỬ DỤNG CÁC BIẾN (Forest, People, Survival)
   // ========================================================================
   
-  // Biến đối tượng Forest
   String forestName = "Vườn Quốc gia Cúc Phương";
   double temperature = 26.5;
 
-  // Biến đối tượng People (Trạng thái chung của nhóm)
   int teamHealthPoints = 100;
   bool isRaining = false;
 
-  // Biến đối tượng Survival
   int daysSurvived = 2;
   String targetLocation = "Cây Chò Ngàn Năm";
 
@@ -50,41 +47,42 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
   // YÊU CẦU 2: THỰC HIỆN SỬ DỤNG COLLECTIONS (Array, List, Map)
   // ========================================================================
   
-  // Sử dụng List: Danh sách đội ngũ sinh tồn (Đối tượng con người)
   final List<String> teamMembers = <String>['Chiến', 'Tú', 'Đức Anh'];
-
-  // Sử dụng List: Hành trang mang theo
   final List<String> inventory = <String>['Thuốc chống vắt', 'Đèn pin', 'Áo mưa', 'Bản đồ', 'Lều trại'];
   
-  // Sử dụng Map: Đánh giá thể lực từng thành viên trong nhóm
   final Map<String, int> staminaMap = {
     'Chiến': 95,
     'Tú': 88,
     'Đức Anh': 90,
   };
 
+  // ========================================================================
+  // YÊU CẦU 4: TẠO VÀ HIỂN THỊ LIST TƯƠNG ỨNG ĐỐI TƯỢNG (Forest có id, name)
+  // ========================================================================
+  
+  final List<Map<String, dynamic>> listForest = [
+    {'id': 1, 'name': 'Rừng Cúc Phương'}, 
+    {'id': 2, 'name': 'Vườn Quốc Gia Ba Vì'}, 
+    {'id': 3, 'name': 'Rừng U Minh'},
+    {'id': 4, 'name': 'Rừng Tràm'}
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // Dùng Scaffold để tạo khung chuẩn cho giao diện App Mobile
     return Scaffold(
-      backgroundColor: Colors.grey.shade100, // Nền app màu xám nhạt để nổi bật các Card
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Colors.green.shade700,
         foregroundColor: Colors.white,
         title: Text(widget.title, style: const TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      // Body cho phép cuộn trên mobile
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             
-            // ========================================================================
-            // YÊU CẦU 3: HIỂN THỊ DỮ LIỆU TỪ BIẾN VÀ COLLECTIONS TRONG BUILD
-            // ========================================================================
-
             // --- 1. HIỂN THỊ CÁC BIẾN (YÊU CẦU 1) ---
             const Text('🌲 THÔNG TIN HÀNH TRÌNH', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.green)),
             Card(
@@ -107,19 +105,18 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
             const SizedBox(height: 24),
 
             // --- 2. HIỂN THỊ LIST BẰNG DẠNG ROW (YÊU CẦU 2 & 3) ---
-            const Text('🧑 NHÓM SINH TỒN ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blue)),
+            const Text('🧑 NHÓM SINH TỒN (Hiển thị List)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blue)),
             Card(
               elevation: 2,
               color: Colors.blue.shade50,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal, // Cuộn ngang cho app mobile
+                  scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
                       const Icon(Icons.group, color: Colors.blue),
                       const SizedBox(width: 8),
-                      // Sử dụng vòng lặp for trong Row đúng như đề bài yêu cầu
                       for (var member in teamMembers) 
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
@@ -138,7 +135,7 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
             const SizedBox(height: 24),
 
             // --- 3. HIỂN THỊ MAP BẰNG DẠNG ROW (YÊU CẦU 2 & 3) ---
-            const Text('🔋 THỂ LỰC THÀNH VIÊN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
+            const Text('🔋 THỂ LỰC (Hiển thị Map)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
             Card(
               elevation: 2,
               color: Colors.orange.shade50,
@@ -147,7 +144,6 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    // Sử dụng cấu trúc .map().toList() đúng như đề bài yêu cầu
                     children: staminaMap.entries.map((entry) => 
                       Padding(
                         padding: const EdgeInsets.only(right: 16.0),
@@ -167,30 +163,32 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
 
             const SizedBox(height: 24),
 
-            // --- 4. HÀNH TRANG ---
-            const Text('🎒 HÀNH TRANG (Hiển thị List mở rộng)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.teal)),
+            // --- 4. HIỂN THỊ LIST ĐỐI TƯỢNG (YÊU CẦU 4) ---
+            const Text('🗺️ DANH SÁCH RỪNG (Yêu cầu 4)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.purple)),
             Card(
               elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Wrap(
-                  spacing: 8.0,
-                  runSpacing: 8.0,
+              child: Column(
+                // Sử dụng hàm .map() để duyệt qua List Map và hiển thị thành các dòng ListTile
+                children: listForest.map((forest) => Column(
                   children: [
-                    ...inventory.map((item) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.teal.shade50,
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.teal.shade200)
+                    ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.purple.shade100,
+                        child: Text('${forest['id']}', style: const TextStyle(color: Colors.purple, fontWeight: FontWeight.bold)),
                       ),
-                      child: Text(item),
-                    ))
+                      title: Text('${forest['name']}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+                      onTap: () {
+                        // Tính năng mở rộng: Bấm vào dòng này có thể làm gì đó sau này
+                      },
+                    ),
+                    // Ngăn cách giữa các rừng bằng đường kẻ, ngoại trừ rừng cuối cùng
+                    if (forest != listForest.last) const Divider(height: 1, indent: 16, endIndent: 16),
                   ],
-                ),
+                )).toList(),
               ),
             ),
-            
+
           ],
         ),
       ),
