@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+// Import 2 file của Câu 3 và Câu 4
+import 'SurvivalKit.dart';
+import 'ListSurvivalKit.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -30,41 +34,63 @@ class CucPhuongSurvivalPage extends StatefulWidget {
 }
 
 class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
-  // ========================================================================
-  // YÊU CẦU 1: THỰC HIỆN SỬ DỤNG CÁC BIẾN (Forest, People, Survival)
-  // ========================================================================
-  
+  // Biến cơ bản (YÊU CẦU 1)
   String forestName = "Vườn Quốc gia Cúc Phương";
   double temperature = 26.5;
-
   int teamHealthPoints = 100;
   bool isRaining = false;
-
   int daysSurvived = 2;
   String targetLocation = "Cây Chò Ngàn Năm";
 
-  // ========================================================================
-  // YÊU CẦU 2: THỰC HIỆN SỬ DỤNG COLLECTIONS (Array, List, Map)
-  // ========================================================================
-  
+  // Collections (YÊU CẦU 2)
   final List<String> teamMembers = <String>['Chiến', 'Tú', 'Đức Anh'];
-  final List<String> inventory = <String>['Thuốc chống vắt', 'Đèn pin', 'Áo mưa', 'Bản đồ', 'Lều trại'];
-  
-  final Map<String, int> staminaMap = {
-    'Chiến': 95,
-    'Tú': 88,
-    'Đức Anh': 90,
-  };
+  final Map<String, int> staminaMap = {'Chiến': 95, 'Tú': 88, 'Đức Anh': 90};
 
-  // ========================================================================
-  // YÊU CẦU 4: TẠO VÀ HIỂN THỊ LIST TƯƠNG ỨNG ĐỐI TƯỢNG (Forest có id, name)
-  // ========================================================================
-  
   final List<Map<String, dynamic>> listForest = [
     {'id': 1, 'name': 'Rừng Cúc Phương'}, 
-    {'id': 2, 'name': 'Rừng Quốc Gia Ba Vì'}, 
-    {'id': 3, 'name': 'Rừng U Minh'}
+    {'id': 2, 'name': 'Vườn Quốc Gia Ba Vì'}, 
+    {'id': 3, 'name': 'Rừng U Minh'},
+    {'id': 4, 'name': 'Rừng Tràm'}
   ];
+
+  // ========================================================================
+  // KẾT NỐI CÂU 3 & CÂU 4 VÀO GIAO DIỆN APP
+  // ========================================================================
+  late ListSurvivalKit kitManager;
+
+  @override
+  void initState() {
+    super.initState();
+    kitManager = ListSurvivalKit();
+    
+    // Tự động thêm 2 dụng cụ mẫu khi mở App
+    kitManager.createKit(1, "Dao đi rừng", "Cắt gọt, tự vệ", 2);
+    kitManager.createKit(2, "Bật lửa", "Tạo lửa sưởi ấm", 5);
+  }
+
+  // THÊM (CREATE) GIAO DIỆN
+  void _addKitOnScreen() {
+    setState(() {
+      // Tìm ID mới nhất để không bị trùng
+      int newId = kitManager.kits.isNotEmpty ? kitManager.kits.last.id + 1 : 1;
+      kitManager.createKit(newId, "Dụng cụ mới $newId", "Chưa xác định", 1);
+    });
+  }
+
+  // SỬA (EDIT) GIAO DIỆN
+  void _editKitOnScreen(int id) {
+    setState(() {
+      kitManager.editKit(id, "Đồ đã nâng cấp", 99); 
+    });
+  }
+
+  // XÓA (DELETE) GIAO DIỆN
+  void _deleteKitOnScreen(int id) {
+    setState(() {
+      // Dùng lệnh removeWhere để tìm và xóa đối tượng có ID tương ứng
+      kitManager.kits.removeWhere((kit) => kit.id == id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +108,7 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             
-            // --- 1. HIỂN THỊ CÁC BIẾN (YÊU CẦU 1) ---
+            // --- 1. HIỂN THỊ CÁC BIẾN ---
             const Text('🌲 THÔNG TIN HÀNH TRÌNH', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.green)),
             Card(
               elevation: 2,
@@ -100,10 +126,9 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
                 ),
               ),
             ),
-
             const SizedBox(height: 24),
 
-            // --- 2. HIỂN THỊ LIST BẰNG DẠNG ROW (YÊU CẦU 2 & 3) ---
+            // --- 2. HIỂN THỊ NHÓM SINH TỒN ---
             const Text('🧑 NHÓM SINH TỒN', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.blue)),
             Card(
               elevation: 2,
@@ -130,44 +155,13 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
                 ),
               ),
             ),
-
             const SizedBox(height: 24),
 
-            // --- 3. HIỂN THỊ MAP BẰNG DẠNG ROW (YÊU CẦU 2 & 3) ---
-            const Text('🔋 THỂ LỰC', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
-            Card(
-              elevation: 2,
-              color: Colors.orange.shade50,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: staminaMap.entries.map((entry) => 
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16.0),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.battery_charging_full, size: 20, color: Colors.orange),
-                            const SizedBox(width: 4),
-                            Text('${entry.key}: ${entry.value}%', style: const TextStyle(fontSize: 15)),
-                          ],
-                        ),
-                      )
-                    ).toList(),
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 24),
-
-            // --- 4. HIỂN THỊ LIST ĐỐI TƯỢNG (YÊU CẦU 4) ---
-            const Text('🗺️ DANH SÁCH RỪNG ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.purple)),
+            // --- 3. HIỂN THỊ DANH SÁCH RỪNG ---
+            const Text('🗺️ DANH SÁCH RỪNG', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.purple)),
             Card(
               elevation: 2,
               child: Column(
-                // Sử dụng hàm .map() để duyệt qua List Map và hiển thị thành các dòng ListTile
                 children: listForest.map((forest) => Column(
                   children: [
                     ListTile(
@@ -176,17 +170,66 @@ class _CucPhuongSurvivalPageState extends State<CucPhuongSurvivalPage> {
                         child: Text('${forest['id']}', style: const TextStyle(color: Colors.purple, fontWeight: FontWeight.bold)),
                       ),
                       title: Text('${forest['name']}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-                      onTap: () {
-                        // Tính năng mở rộng: Bấm vào dòng này có thể làm gì đó sau này
-                      },
                     ),
-                    // Ngăn cách giữa các rừng bằng đường kẻ, ngoại trừ rừng cuối cùng
                     if (forest != listForest.last) const Divider(height: 1, indent: 16, endIndent: 16),
                   ],
                 )).toList(),
               ),
             ),
+            const SizedBox(height: 24),
+
+            // ========================================================================
+            // --- 4. GIAO DIỆN CRUD: THÊM, ĐỌC, SỬA, XÓA DỤNG CỤ ---
+            // ========================================================================
+            const Text('🎒 QUẢN LÝ DỤNG CỤ SINH TỒN (CRUD)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.brown)),
+            Card(
+              elevation: 2,
+              child: Column(
+                // ĐỌC (READ)
+                children: kitManager.kits.map((kit) => Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.handyman, color: Colors.brown, size: 30),
+                      title: Text(kit.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Text('Công dụng: ${kit.function} \nSố lượng: ${kit.quantity}'),
+                      
+                      // Cụm nút Sửa và Xóa
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min, // Giúp 2 icon không bị chiếm hết chiều ngang
+                        children: [
+                          // Nút SỬA (EDIT)
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.blue),
+                            onPressed: () => _editKitOnScreen(kit.id),
+                          ),
+                          // Nút XÓA (DELETE)
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () => _deleteKitOnScreen(kit.id),
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (kit != kitManager.kits.last) const Divider(height: 1, indent: 16, endIndent: 16),
+                  ],
+                )).toList(),
+              ),
+            ),
+            
+            const SizedBox(height: 12),
+            
+            // Nút THÊM (CREATE) nằm ở dưới cùng
+            ElevatedButton.icon(
+              onPressed: _addKitOnScreen,
+              icon: const Icon(Icons.add),
+              label: const Text("Thêm Dụng Cụ Mới"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.brown.shade100,
+                foregroundColor: Colors.brown.shade900,
+                padding: const EdgeInsets.symmetric(vertical: 16)
+              ),
+            ),
+            const SizedBox(height: 32),
 
           ],
         ),
