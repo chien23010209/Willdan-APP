@@ -1,38 +1,33 @@
 # 🏕️ Willdan-APP - Sổ Tay Sinh Tồn Toàn Diện
 
-**Willdan-APP** không chỉ là một ứng dụng di động, mà là "người bạn đồng hành" không thể thiếu trong mọi chuyến phiêu lưu. Dù bạn là một phượt thủ chuyên nghiệp, người yêu thích cắm trại, hay đơn giản là muốn trang bị kiến thức để ứng phó với các tình huống khẩn cấp, Willdan-APP sẽ cung cấp cho bạn mọi kỹ năng và công cụ sinh tồn cần thiết nhất ngay trong tầm tay.
+**Willdan-APP** không chỉ là một ứng dụng di động, mà là "người bạn đồng hành" không thể thiếu trong mọi chuyến phiêu lưu. Ứng dụng cung cấp kiến thức sinh tồn chuẩn xác (100% Offline) dành cho phượt thủ, người cắm trại và khám phá rừng nhiệt đới.
 
 ---
 
-## 🎯 Mục tiêu và Đối tượng sử dụng
-- **Mục tiêu:** Cung cấp nguồn kiến thức sinh tồn chuẩn xác, dễ hiểu và có thể truy cập mọi lúc mọi nơi kể cả khi không có mạng lưới viễn thông (100% Offline).
-- **Đối tượng:** Người yêu thích du lịch bụi (Backpackers), leo núi (Trekkers), cắm trại (Campers) và bất kỳ ai muốn tự học kỹ năng sinh tồn, sơ cứu cơ bản.
+## ✅ BÁO CÁO KẾT QUẢ THỰC HIỆN ĐỒ ÁN (CẬP NHẬT MỚI NHẤT)
+*(Phần trình bày kết quả thực hành theo yêu cầu bài tập nhóm)*
 
----
+**1. Xây dựng Layout ứng dụng (Home / Content / About):**
+* **Header & Footer:** Được thiết kế cố định, hiển thị thông tin ĐH Phenikaa và danh sách sinh viên nhóm trên mọi màn hình.
+* **Home Screen:** Thiết kế dạng Dashboard với các nút hình vuông (Grid View) phân loại rõ ràng: *Động vật, Thực vật, Kỹ năng, Dụng cụ*.
+* **Content Screen:** Sử dụng List View để trình bày cẩm nang sinh tồn chi tiết.
+* **About Screen:** Thông tin dự án và profile các thành viên.
 
-## 🚀 Tính năng chi tiết
+**2. Xây dựng Navigation Bar:**
+* Tích hợp thành công `BottomNavigationBar` ở cuối cùng mỗi trang.
+* Hỗ trợ điều hướng mượt mà giữa 3 màn hình chính mà không làm đứt gãy giao diện tổng thể.
 
-### 1. 📚 Thư viện Kỹ năng Sinh tồn (Survival Guide)
-- **Tìm kiếm và lọc nước:** Nhận biết nguồn nước an toàn trong tự nhiên, các phương pháp lọc nước vật lý và hóa học.
-- **Tạo và duy trì lửa:** Kỹ thuật đánh lửa không cần diêm/bật lửa (dùng ma sát, đá lửa), cách chọn củi và giữ lửa trong môi trường ẩm ướt.
-- **Xây dựng nơi trú ẩn:** Hướng dẫn dựng lều trại đúng cách, tạo hầm trú ẩn khẩn cấp từ cành cây và lá rừng.
-- **Thực phẩm tự nhiên:** Từ điển hình ảnh giúp phân biệt các loại nấm độc, thực vật ăn được và cách đặt bẫy sinh tồn.
+**3. Sự thống nhất và Thực thi Mockup:**
+* **Thiết kế (Layout/Màu sắc/Font chữ):** Thống nhất dùng màu Xanh lá (`Colors.green.shade800`) làm chủ đạo, đồng bộ thông qua `ThemeData` toàn ứng dụng.
+* **Content & Chức năng:** Chuẩn hóa dữ liệu theo mô hình OOP (Chia 4 Model riêng biệt).
+* **Mockup:** Mã nguồn hiện tại được thực thi bám sát 100% với bản vẽ "Mockup screen" do nhóm thiết kế trước đó.
 
-### 2. ⛑️ Sơ cứu Y tế Khẩn cấp (First Aid)
-- Hướng dẫn từng bước (kèm hình ảnh minh họa) cho các tình huống: Hô hấp nhân tạo (CPR), cầm máu, cố định gãy xương, say nắng, hạ thân nhiệt.
-- Cách xử lý nhanh khi bị rắn độc cắn, côn trùng đốt hoặc ngộ độc thực phẩm rừng.
-
-### 3. 🛠️ Bộ công cụ Sinh tồn Tích hợp (Survival Tools)
-- **La bàn định vị:** Tích hợp la bàn số học có độ chính xác cao, hiển thị trực tiếp tọa độ GPS (Kinh độ/Vĩ độ) hiện tại.
-- **Đèn pin & SOS:** Tích hợp đèn pin và chế độ nháy đèn Flash tự động theo mã Morse chuẩn quốc tế để phát tín hiệu cầu cứu.
-- **Còi báo động:** Phát âm thanh tần số cực cao liên tục để thu hút sự chú ý của đội cứu hộ khi bị lạc.
-
-### 4. 🎒 Quản lý hành trang (Backpack Checklist)
-- Danh sách kiểm tra đồ đạc thông minh gợi ý theo loại hình chuyến đi (leo núi, đi rừng sâu, cắm trại biển) giúp người dùng không bao giờ quên đồ.
-
-### 5. ⚠️ Hệ thống Cảnh báo Hiểm họa (Wildlife CRUD) - *Module Mới Cập Nhật*
-- **Quản lý Sinh vật nguy hiểm:** Khởi tạo lớp đối tượng `Wildlife.dart` lưu trữ các thông tin sinh tồn thực tế (Mức độ nguy hiểm, Tập tính, Cách đối phó khẩn cấp).
-- **Thao tác dữ liệu (CRUD):** Lớp `ListWildlife.dart` cho phép người dùng Thêm mới (khi phát hiện loài lạ), Đọc chi tiết cách sơ cứu, Cập nhật thông tin nhanh và Xóa bản ghi trực tiếp trên giao diện Dashboard.
+**4. Danh mục nộp bài của sinh viên:**
+* [x] **1. Github repo của nhóm:** *(Chèn link repo github vào đây)*
+* [x] **2. Ảnh chụp màn hình chương trình chạy:** *(Lưu trong thư mục `/images` trên Github)*
+* [x] **3. Code chính phần Layout:** Nằm tại file `lib/main_layout.dart`
+* [x] **4. Code chính của Navigation bar:** Tích hợp bên trong `lib/main_layout.dart`
+* [x] **5. Link ReadMe.md:** *(Chính là file này)*
 
 ---
 
@@ -46,10 +41,30 @@
 
 ---
 
-## 💻 Kiến trúc & Công nghệ (Tech Stack)
+## 🚀 Tính năng chi tiết của Ứng dụng
 
-* **Giao diện & Logic (Frontend):** Flutter (Dart)
-* **Cơ sở dữ liệu cục bộ (Local DB):** SQLite
-* **Dịch vụ đám mây (Cloud Services):** Firebase Authentication, Cloud Firestore
-* **Bản đồ & Định vị:** Google Maps API, Cảm biến từ trường (Magnetic Sensor)
-* **Công cụ thiết kế:** Figma, Adobe Illustrator
+### 1. 📚 Thư viện Kỹ năng Sinh tồn (Survival Guide)
+* **Tìm kiếm và lọc nước:** Nhận biết nguồn nước an toàn, phương pháp lọc nước.
+* **Tạo và duy trì lửa:** Kỹ thuật đánh lửa không cần diêm, giữ lửa môi trường ẩm.
+* **Xây dựng nơi trú ẩn:** Hướng dẫn dựng lều, tạo hầm trú ẩn khẩn cấp.
+* **Thực phẩm tự nhiên:** Phân biệt nấm độc, thực vật ăn được và đặt bẫy.
+
+### 2. ⛑️ Sơ cứu Y tế Khẩn cấp (First Aid)
+* Hướng dẫn CPR, cầm máu, cố định gãy xương, hạ thân nhiệt.
+* Cách xử lý khi bị rắn độc cắn, côn trùng đốt.
+
+### 3. 🛠️ Bộ công cụ Sinh tồn Tích hợp (Survival Tools)
+* **La bàn định vị:** La bàn số học có độ chính xác cao.
+* **Đèn pin & SOS:** Tích hợp đèn pin và nháy Flash theo mã Morse.
+* **Còi báo động:** Phát âm thanh tần số cao thu hút cứu hộ.
+
+### 4. ⚠️ Hệ thống Cảnh báo Hiểm họa (Wildlife CRUD) - *Đang nâng cấp*
+* Quản lý Sinh vật nguy hiểm qua lớp đối tượng `Wildlife.dart`.
+* Thao tác dữ liệu (CRUD): Thêm, Đọc, Cập nhật, Xóa bản ghi trực tiếp trên Dashboard.
+
+---
+## 💻 Kiến trúc & Công nghệ (Tech Stack)
+* **Frontend:** Flutter (Dart)
+* **Local DB:** SQLite
+* **Cloud Services:** Firebase Authentication, Cloud Firestore
+* **Tools:** Figma, Adobe Illustrator
