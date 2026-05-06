@@ -6,10 +6,9 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      // Bỏ padding ở đây để Banner có thể tràn viền màn hình
       child: Column(
         children: [
-          // 1. Banner Phong cách Sinh tồn hoang dã
+          // 1. Banner Phong cách Sinh tồn
           Container(
             height: 220,
             width: double.infinity,
@@ -18,7 +17,7 @@ class AboutScreen extends StatelessWidget {
               image: const DecorationImage(
                 image: NetworkImage('https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=1000'),
                 fit: BoxFit.cover,
-                opacity: 0.6, // Làm tối ảnh nền để chữ nổi bật hơn
+                opacity: 0.6,
               ),
             ),
             child: const Center(
@@ -42,7 +41,7 @@ class AboutScreen extends StatelessWidget {
             ),
           ),
 
-          // 2. Nội dung chi tiết (Có padding)
+          // 2. Nội dung chi tiết
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -62,7 +61,7 @@ class AboutScreen extends StatelessWidget {
                 
                 const SizedBox(height: 25),
 
-                // Tiêu chí cốt lõi của App (Được highlight trong khung)
+                // Tiêu chí cốt lõi của App
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -93,6 +92,49 @@ class AboutScreen extends StatelessWidget {
 
                 const SizedBox(height: 30),
 
+                // ==========================================
+                // PHẦN MỚI: TÓM TẮT TÍNH NĂNG ỨNG DỤNG
+                // ==========================================
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    '🌟 Tính năng nổi bật:',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                
+                _buildFeatureSummary(
+                  title: 'Động vật hoang dã',
+                  icon: Icons.pets,
+                  color: Colors.red.shade400,
+                  description: 'Cung cấp thông tin nhận diện, tập tính và cách phòng tránh các loài động vật nguy hiểm đặc trưng tại Rừng Cúc Phương.',
+                ),
+                
+                _buildFeatureSummary(
+                  title: 'Thực vật bản địa',
+                  icon: Icons.eco,
+                  color: Colors.green.shade600,
+                  description: 'Cẩm nang phân biệt các loài cây có độc để né tránh, đồng thời nhận biết các loại thực vật có thể cung cấp nguồn nước và hỗ trợ sơ cứu.',
+                ),
+                
+                _buildFeatureSummary(
+                  title: 'Kỹ năng sinh tồn',
+                  icon: Icons.local_fire_department,
+                  color: Colors.orange.shade600,
+                  description: 'Hướng dẫn chi tiết các kỹ năng thực chiến như định hướng bằng tự nhiên, phương pháp lọc nước và kỹ thuật dựng lán trại an toàn.',
+                ),
+
+                _buildFeatureSummary(
+                  title: 'Dụng cụ & Trang bị',
+                  icon: Icons.build,
+                  color: Colors.blue.shade600,
+                  description: 'Danh sách các vật dụng thiết yếu cần chuẩn bị và mẹo tận dụng, chế tạo công cụ từ những vật liệu có sẵn trong rừng.',
+                ),
+                // ==========================================
+
+                const SizedBox(height: 30),
+
                 // Danh sách thành viên
                 const Align(
                   alignment: Alignment.centerLeft,
@@ -106,7 +148,7 @@ class AboutScreen extends StatelessWidget {
                 _buildMemberCard('Nguyễn Văn Tú', '23010109'),
                 _buildMemberCard('Nguyễn Lê Đức Anh', '23010246'),
                 
-                const SizedBox(height: 40), // Khoảng trống dưới cùng để cuộn mượt hơn
+                const SizedBox(height: 40),
               ],
             ),
           ),
@@ -115,7 +157,72 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  // Hàm tạo Card thành viên được thiết kế lại đẹp hơn
+  // Widget hiển thị tóm tắt từng danh mục
+  Widget _buildFeatureSummary({
+    required String title, 
+    required IconData icon, 
+    required Color color, 
+    required String description,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, color: color, size: 24),
+            ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16, 
+                      fontWeight: FontWeight.bold, 
+                      color: Colors.grey.shade800
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 14, 
+                      color: Colors.grey.shade600,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Hàm tạo Card thành viên
   Widget _buildMemberCard(String name, String id) {
     return Card(
       elevation: 0,
