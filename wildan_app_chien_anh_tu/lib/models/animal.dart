@@ -4,6 +4,7 @@ class Animal {
   final String dangerLevel;
   final String description;
   final String firstAid;
+  final String imagePath;
 
-  Animal({required this.id, required this.name, required this.dangerLevel, required this.description, required this.firstAid});
+  Animal({required this.id, required this.name, required this.dangerLevel, required this.description, required this.firstAid, required this.imagePath});
 }

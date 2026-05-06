@@ -11,14 +11,15 @@ class HeaderWidget extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.green,
         image: DecorationImage(
-          image: NetworkImage('https://upload.wikimedia.org/wikipedia/commons/e/e9/Cuc_Phuong_National_Park_Gate.jpg'),
+          // Dùng ảnh từ thư mục assets thay vì tải từ mạng
+          image: AssetImage('assets/images/cuc-phuong-national-park.jpg'),
           fit: BoxFit.cover,
-          opacity: 0.8,
+          opacity: 0.85,
         ),
       ),
       child: Stack(
         children: [
-          Container(color: Colors.black45), // Lớp phủ tối
+          Container(color: Colors.black45), 
           const Positioned(
             bottom: 15,
             left: 20,
@@ -26,9 +27,15 @@ class HeaderWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('ĐẠI HỌC CÔNG NGHỆ THÔNG TIN PHENIKAA', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(
+                  'ĐẠI HỌC CÔNG NGHỆ THÔNG TIN PHENIKAA', 
+                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)
+                ),
                 SizedBox(height: 5),
-                Text('Bí kíp sinh tồn thực tế Rừng Cúc Phương', style: TextStyle(color: Colors.white, fontSize: 13)),
+                Text(
+                  'Bí kíp sinh tồn thực tế Rừng Cúc Phương', 
+                  style: TextStyle(color: Colors.white, fontSize: 13)
+                ),
               ],
             ),
           ),

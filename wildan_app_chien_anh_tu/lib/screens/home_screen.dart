@@ -7,115 +7,159 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0), // Padding tổng thể
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Tiêu đề Dashboard
-          const Text(
-            'Bảng Điều Khiển Sinh Tồn',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.green,
-            ),
+    // Nếu bạn đã có Scaffold ở MainLayout thì dùng Container, nếu không thì bọc bằng Scaffold
+    return Container(
+      color: const Color(0xFFF5F5F5), // Màu nền xám nhạt hệt như trong hình mẫu Figma
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center, // Căn giữa toàn bộ
+            children: [
+              // 1. Khối Title (Chữ rất to, đen đậm)
+              const Text(
+                'Tra Cứu Sinh Tồn',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 42,
+                  fontWeight: FontWeight.w800,
+                  color: Color(0xFF2D2D2D),
+                  letterSpacing: -0.5,
+                ),
+              ),
+              const SizedBox(height: 8),
+              
+              // 2. Khối Subtitle (Chữ nhỏ hơn, xám đen)
+              const Text(
+                'Rừng Quốc gia Cúc Phương',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Color(0xFF4A4A4A),
+                ),
+              ),
+              const SizedBox(height: 40),
+
+              // 3. Khối Form (Nền trắng, bo góc, viền mờ)
+              Container(
+                width: double.infinity,
+                constraints: const BoxConstraints(maxWidth: 400), // Giới hạn chiều rộng để form không bị bè ra quá dài trên tablet/web
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildFormRow(
+                      context,
+                      label: 'Động vật',
+                      placeholderText: 'Tra cứu thú, bò sát, côn trùng...',
+                      icon: Icons.pets,
+                      categoryType: 'Animal',
+                      color: Colors.red.shade700,
+                    ),
+                    const SizedBox(height: 20),
+                    
+                    _buildFormRow(
+                      context,
+                      label: 'Thực vật',
+                      placeholderText: 'Tra cứu cây thuốc, nấm ăn...',
+                      icon: Icons.eco,
+                      categoryType: 'Plant',
+                      color: Colors.green.shade700,
+                    ),
+                    const SizedBox(height: 20),
+                    
+                    _buildFormRow(
+                      context,
+                      label: 'Kỹ năng',
+                      placeholderText: 'Nhóm lửa, dựng lán, sơ cứu...',
+                      icon: Icons.local_fire_department,
+                      categoryType: 'Skill',
+                      color: Colors.orange.shade700,
+                    ),
+                    const SizedBox(height: 20),
+                    
+                    _buildFormRow(
+                      context,
+                      label: 'Dụng cụ',
+                      placeholderText: 'Dao, đá lửa, dây thừng...',
+                      icon: Icons.handyman,
+                      categoryType: 'Tool',
+                      color: Colors.blue.shade700,
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Text(
-            'Rừng Quốc gia Cúc Phương & Việt Nam',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey.shade700,
-            ),
-          ),
-          const SizedBox(height: 24), // Khoảng cách
-          
-          // DANH SÁCH CÁC THANH NGANG (LIST VIEW)
-          Expanded(
-            child: ListView(
-              // Loại bỏ padding mặc định của ListView để sát lề Column
-              padding: EdgeInsets.zero, 
-              children: [
-                _buildHorizontalBar(
-                  context,
-                  title: 'Động Vật',
-                  icon: Icons.pets,
-                  color: Colors.red.shade700,
-                  categoryType: 'Animal',
-                ),
-                const SizedBox(height: 16), // Khoảng cách giữa các thanh
-                _buildHorizontalBar(
-                  context,
-                  title: 'Thực Vật',
-                  icon: Icons.eco,
-                  color: Colors.green.shade700,
-                  categoryType: 'Plant',
-                ),
-                const SizedBox(height: 16),
-                _buildHorizontalBar(
-                  context,
-                  title: 'Kỹ Năng',
-                  icon: Icons.local_fire_department,
-                  color: Colors.orange.shade700,
-                  categoryType: 'Skill',
-                ),
-                const SizedBox(height: 16),
-                _buildHorizontalBar(
-                  context,
-                  title: 'Dụng Cụ',
-                  icon: Icons.handyman,
-                  color: Colors.blue.shade700,
-                  categoryType: 'Tool',
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  // Hàm tạo nút bấm dạng THANH NGANG xịn xò
-  Widget _buildHorizontalBar(BuildContext context, {required String title, required IconData icon, required Color color, required String categoryType}) {
-    return InkWell(
-      onTap: () {
-        // Chuyển sang màn hình danh sách chi tiết tương ứng
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CategoryListScreen(categoryType: categoryType, title: title, color: color)),
-        );
-      },
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16), // Padding trong thanh
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1), // Nền nhạt
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+  // Hàm tạo từng hàng giống hệt TextField trong form mẫu
+  Widget _buildFormRow(BuildContext context, {
+    required String label, 
+    required String placeholderText, 
+    required IconData icon, 
+    required String categoryType, 
+    required Color color
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Label (Giống các chữ "Name", "Surname", "Email" trong hình mẫu)
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
+          ),
         ),
-        child: Row(
-          children: [
-            // Icon bên trái
-            Icon(icon, size: 30, color: color),
-            const SizedBox(width: 20), // Khoảng cách giữa icon và chữ
-            
-            // Tiêu đề (Expanded để chiếm hết không gian còn lại)
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: color,
-                ),
-              ),
+        const SizedBox(height: 8),
+        
+        // Ô input (Thay vì gõ chữ, mình biến nó thành nút bấm chuyển trang)
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CategoryListScreen(categoryType: categoryType, title: label, color: color)),
+            );
+          },
+          borderRadius: BorderRadius.circular(6),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: Colors.grey.shade300), // Viền xám mờ chuẩn form
             ),
-            
-            // Icon mũi tên trỏ sang phải (Tạo cảm giác bấm được)
-            Icon(Icons.arrow_forward_ios, size: 16, color: color.withOpacity(0.5)),
-          ],
+            child: Row(
+              children: [
+                Icon(icon, size: 20, color: color),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    placeholderText, // Hiển thị giống chữ "Value" mờ mờ trong form mẫu
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade400, 
+                    ),
+                  ),
+                ),
+                Icon(Icons.search, size: 18, color: Colors.grey.shade400),
+              ],
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }
